@@ -199,6 +199,10 @@ def load_data(projects_path, img_ratio_path, video_path,
         df_vid["project"] = df_vid["project"].astype(str).str.strip()
         df_vid["_prefix"] = to_prefix(df_vid["project"])
 
+        if 'total_duration' in df_vid.columns:
+            df_vid['total_duration'] = pd.to_numeric(df_vid['total_duration'], errors='coerce')
+        if 'usage_scene_ratio' in df_vid.columns:
+            df_vid['usage_scene_ratio'] = pd.to_numeric(df_vid['usage_scene_ratio'], errors='coerce')
         agg = {}
         if "total_duration"    in df_vid.columns: agg["total_duration"]    = "sum"
         if "usage_scene_ratio" in df_vid.columns: agg["usage_scene_ratio"] = "mean"
